@@ -1,11 +1,10 @@
-import React, {createRef, forwardRef} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import useFieldElement from "./useFieldElement";
 
 const Field = (props, ref) => {
-  const { value, handleChange } = useFieldElement(props.initValue);
-console.log(ref);
+  const { value, handleChange } = useFieldElement(props.initValue || "");
   return (
     <input
       type={props.type}
@@ -18,7 +17,7 @@ console.log(ref);
   );
 };
 
-export default React.forwardRef(Field);
+export default React.forwardRef((props, ref) => Field(props, ref));
 
 Field.propTypes = {
   initValue: PropTypes.any,

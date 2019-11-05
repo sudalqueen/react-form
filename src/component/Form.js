@@ -1,4 +1,4 @@
-import React, { Component, createRef, forwardRef } from "react";
+import React, { Component, createRef, cloneElement, forwardRef } from "react";
 
 class Form extends Component {
   constructor(props) {
@@ -10,38 +10,36 @@ class Form extends Component {
   }
 
   componentDidMount() {
+    let tempRefs = [];
+    this.props.children.map(() => {
+      const ref = createRef();
+      tempRefs.push(ref);
+    });
+    this.setState({
+      refs: tempRefs
+    });
     this.onSubmit();
   }
 
   onSubmit = () => {
-    let values = [];
-    if (typeof this.props.children === Array) {
-      this.props.children.map(child => {
-        const newChild = Object.assign({}, child, { ref: createRef() });
-        values.push(newChild);
-        return console.log(values);
-      });
-    } else {
-      console.log(this.state.refs);
-    }
+    console.log(this.state.refs);
   };
 
   render() {
-    this.state.refs = [];
-    const ChildComponentWithRef = React.forwardRef(props => (
+    const refs = this.state.refs;
+
+    return (
       <>
-        {React.Children.map(this.props.children, child => {
-          const ref = createRef();
-          this.state.refs.push(ref);
-          return React.cloneElement(child, {
-            ...props,
+        {React.Children.map(this.props.children, (child, index) => {
+          const ref = refs[index];
+          return cloneElement(child, {
+            ...child.props,
             ref
           });
         })}
         <button onClick={this.onSubmit}>Click Me!</button>
       </>
-    ));
-    return <ChildComponentWithRef/>;
+    );
   }
 }
 
