@@ -1,46 +1,29 @@
-import React, { Component, createRef, cloneElement, forwardRef } from "react";
+import React, { useContext } from "react";
+import { RefProvider, RefContext } from "../context/RefProvider";
 
-class Form extends Component {
-  constructor(props) {
-    super(props);
+const Form = props => {
+  return (
+    <RefProvider>
+      <InnerForm props={props} />
+    </RefProvider>
+  );
+};
 
-    this.state = {
-      refs: []
-    };
-  }
+const InnerForm = props => {
+  const context = useContext(RefContext);
 
-  componentDidMount() {
-    let tempRefs = [];
-    this.props.children.map(() => {
-      const ref = createRef();
-      tempRefs.push(ref);
-    });
-    this.setState({
-      refs: tempRefs
-    });
-    this.onSubmit();
-  }
-
-  onSubmit = () => {
-    console.log(this.state.refs);
+  const onSubmit = () => {
+    context.refs.map(ref=>{
+      console.log(ref.current.name," : ",ref.current.defaultValue)
+    })
   };
 
-  render() {
-    const refs = this.state.refs;
-
-    return (
-      <>
-        {React.Children.map(this.props.children, (child, index) => {
-          const ref = refs[index];
-          return cloneElement(child, {
-            ...child.props,
-            ref
-          });
-        })}
-        <button onClick={this.onSubmit}>Click Me!</button>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      {props.props.children}
+      <button onClick={onSubmit}>Click Me!</button>
+    </>
+  );
+};
 
 export default Form;

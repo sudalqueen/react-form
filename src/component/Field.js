@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import useFieldElement from "./useFieldElement";
+import { RefContext } from "../context/RefProvider";
 
-const Field = (props, ref) => {
+const Field = props => {
+  const ref = useRef(null);
+  const context = useContext(RefContext);
+
   const { value, handleChange } = useFieldElement(props.initValue || "");
+
+  useEffect(() => {
+    context.action.setRefs(ref);
+  }, []);
+
   return (
     <input
       type={props.type}
@@ -17,7 +26,7 @@ const Field = (props, ref) => {
   );
 };
 
-export default React.forwardRef((props, ref) => Field(props, ref));
+export default Field;
 
 Field.propTypes = {
   initValue: PropTypes.any,
