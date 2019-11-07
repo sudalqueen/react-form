@@ -22,8 +22,7 @@ const InnerForm = props => {
         getValue(current);
       }
     });
-    // alert(JSON.stringify(values));
-    console.log(context);
+    alert(JSON.stringify(values));
   };
 
   const getValue = current => {
