@@ -20,8 +20,12 @@ const Field = props => {
       name={props.name}
       label={props.label}
       value={value}
+      placeholder={props.placeholder}
+      className={props.className}
       ref={ref}
       onChange={handleChange}
+      required={props.required}
+      pattern={props.pattern}
     />
   );
 };
@@ -29,17 +33,25 @@ const Field = props => {
 export default Field;
 
 Field.propTypes = {
-  value: PropTypes.any,
   type: PropTypes.oneOf(["text", "radio", "checkbox"]),
   name: PropTypes.string,
   label: PropTypes.string,
-  className: PropTypes.string
+  value: PropTypes.any,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
+  id: PropTypes.string,
+  required: PropTypes.bool,
+  pattern: PropTypes.string
 };
 
 Field.defaultProps = {
-  value: "",
   type: "text",
   name: null,
   label: null,
-  className: null
+  value: "",
+  placeholder: null,
+  className: null,
+  id: null,
+  required: false,
+  pattern: null
 };

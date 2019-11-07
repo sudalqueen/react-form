@@ -10,7 +10,7 @@ const Form = props => {
 };
 
 const InnerForm = props => {
-  const [result, setResult] = useState({});
+  const [values, setValues] = useState({});
   const context = useContext(RefContext);
 
   const onSubmit = () => {
@@ -22,13 +22,14 @@ const InnerForm = props => {
         getValue(current);
       }
     });
-    console.log(result);
+    // alert(JSON.stringify(values));
+    console.log(context);
   };
 
   const getValue = current => {
     if (current.type === "text") {
-      return setResult(
-        Object.assign(result, { [current.name]: current.value })
+      return setValues(
+        Object.assign(values, { [current.name]: current.value })
       );
     }
   };
@@ -36,15 +37,15 @@ const InnerForm = props => {
   const getChecked = current => {
     if (current.type === "checkbox") {
       if (current.checked) {
-        let checkboxArray = result[current.name];
+        let checkboxArray = values[current.name];
         if (!checkboxArray) {
-          return setResult(
-            Object.assign(result, { [current.name]: [current.value] })
+          return setValues(
+            Object.assign(values, { [current.name]: [current.value] })
           );
         }
         if (checkboxArray.indexOf(current.value) === -1) {
-          return setResult(
-            Object.assign(result, {
+          return setValues(
+            Object.assign(values, {
               [current.name]: checkboxArray.concat(current.value)
             })
           );
@@ -52,8 +53,8 @@ const InnerForm = props => {
       }
     } else {
       if (current.checked) {
-        return setResult(
-          Object.assign(result, { [current.name]: current.value })
+        return setValues(
+          Object.assign(values, { [current.name]: current.value })
         );
       }
     }
@@ -61,10 +62,10 @@ const InnerForm = props => {
   };
 
   return (
-    <>
+    <form>
       {props.props.children}
       <button onClick={onSubmit}>Click Me!</button>
-    </>
+    </form>
   );
 };
 

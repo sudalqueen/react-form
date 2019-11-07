@@ -6,15 +6,15 @@ function App() {
   return (
     <Form>
       <label>이름</label>
-      <Field label="name" name="name" type="text" />
+      <Field label="name" name="name" type="text" required pattern="banana"/>
       <div>
         <label>성별</label>
         <label>
-          <Field label="gender" name="gender" type="radio" value="Male" />
+          <Field label="gender" name="gender" type="radio" value="Male"/>
           Male
         </label>
         <label>
-          <Field label="gender" name="gender" type="radio" value="Female" />
+          <Field label="gender" name="gender" type="radio" value="Female"/>
           Female
         </label>
       </div>
