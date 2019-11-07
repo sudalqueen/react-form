@@ -13,7 +13,8 @@ const InnerForm = props => {
   const [values, setValues] = useState({});
   const context = useContext(RefContext);
 
-  const onSubmit = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
     context.refs.map(ref => {
       const current = ref.current;
       if (current.type === "radio" || current.type === "checkbox") {
