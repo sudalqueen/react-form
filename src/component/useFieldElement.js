@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react';
+import {useState} from 'react';
 
 const useFieldElement = (initValue) => {
     const [value, setValue] = useState(initValue)
@@ -7,9 +7,7 @@ const useFieldElement = (initValue) => {
         setValue(event.target.value)
     }
 
-    const ref = useRef();
-
-    return {value, ref, handleChange}
+    return {value, handleChange}
 }
 
 export default useFieldElement;

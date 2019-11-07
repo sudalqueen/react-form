@@ -8,7 +8,7 @@ const Field = props => {
   const ref = useRef(null);
   const context = useContext(RefContext);
 
-  const { value, handleChange } = useFieldElement(props.initValue || "");
+  const { value, handleChange } = useFieldElement(props.value || "");
 
   useEffect(() => {
     context.action.setRefs(ref);
@@ -29,15 +29,15 @@ const Field = props => {
 export default Field;
 
 Field.propTypes = {
-  initValue: PropTypes.any,
-  type: PropTypes.oneOf(["text"]),
+  value: PropTypes.any,
+  type: PropTypes.oneOf(["text", "radio", "checkbox"]),
   name: PropTypes.string,
   label: PropTypes.string,
   className: PropTypes.string
 };
 
 Field.defaultProps = {
-  initValue: "",
+  value: "",
   type: "text",
   name: null,
   label: null,
