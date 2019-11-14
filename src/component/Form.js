@@ -23,7 +23,8 @@ const InnerForm = props => {
         getValue(current);
       }
     });
-    alert(JSON.stringify(values));
+    props.props.onSubmit(values);
+    setValues({});
   };
 
   const getValue = current => {
@@ -62,9 +63,9 @@ const InnerForm = props => {
   };
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       {props.props.children}
-      <button onClick={onSubmit}>Click Me!</button>
+      {/* <button onClick={onSubmit}>Click Me!</button> */}
     </form>
   );
 };

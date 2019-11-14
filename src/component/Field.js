@@ -7,12 +7,13 @@ import { RefContext } from "../context/RefProvider";
 const Field = props => {
   const ref = useRef(null);
   const context = useContext(RefContext);
+  const isCheckType = (props.type === "radio" || props.type === "checkbox");
 
   const { value, handleChange } = useFieldElement(props.value || "");
 
   useEffect(() => {
     context.action.setRefs(ref);
-  }, []);
+  });
 
   return (
     <input
@@ -33,7 +34,7 @@ const Field = props => {
 export default Field;
 
 Field.propTypes = {
-  type: PropTypes.oneOf(["text", "radio", "checkbox"]),
+  type: PropTypes.oneOf(["text", "radio", "checkbox", "submit"]),
   name: PropTypes.string,
   label: PropTypes.string,
   value: PropTypes.any,
